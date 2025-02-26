@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 
 export default function Dashboard() {
@@ -7,10 +7,19 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
     const [ip, setIp] = useState("");
     const [error, setError] = useState("");
-    const [recommendationError, setRecommendationError] = useState("");
     const navigate = useNavigate();
+    const location = useLocation();
 
     const token = useRef(null);
+
+    useEffect(() => {
+        const queryParams = new URLSearchParams(location.search);
+        const ipParam = queryParams.get("ip");
+        if (ipParam) {
+            setIp(ipParam);
+            fetchData();
+        }
+    }, [location]);    
 
     useEffect(() => {
         token.current = localStorage.getItem("authToken");
@@ -26,22 +35,6 @@ export default function Dashboard() {
 
     const summaryDashboard = async () => {
         navigate("/summary");
-    };
-
-    const getRecommendation = async () => {
-        try {
-            const fullLog = `196.251.85.250 - - [25/Feb/2025:10:46:11 +0000] "GET /login.rsp HTTP/1.1" 404 454 "-" "Hello World"`;
-            const response = await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/v1/ai/recommendation`, {
-                    body: JSON.stringify({ fullLog })
-                }
-            );
-            console.log(response.data);
-            setRecommendationError(""); // Clear any previous recommendation error
-        } catch (err) {
-            setRecommendationError("Failed to get recommendation or Service Unavailable");
-            console.log(err.status, recommendationError);
-        }
     };
 
     const fetchData = async () => {
@@ -134,23 +127,6 @@ export default function Dashboard() {
                         </svg>
                         Search
                     </button>
-                    <button onClick={getRecommendation} className="bg-green-500 flex items-center text-white px-4 py-2 rounded-lg hover:bg-green-600">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            strokeWidth={1.5}
-                            stroke="currentColor"
-                            className="w-6 h-6 mr-2"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M9.813 15.904 9 18.75l-.813-2.846a4.5 4.5 0 0 0-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 0 0 3.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 0 0 3.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 0 0-3.09 3.09ZM18.259 8.715 18 9.75l-.259-1.035a3.375 3.375 0 0 0-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 0 0 2.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 0 0 2.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 0 0-2.456 2.456ZM16.894 20.567 16.5 21.75l-.394-1.183a2.25 2.25 0 0 0-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 0 0 1.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 0 0 1.423 1.423l1.183.394-1.183.394a2.25 2.25 0 0 0-1.423 1.423Z"
-                            />
-                        </svg>
-                        Recommendation
-                    </button>
                     <button onClick={summaryDashboard} className="bg-amber-500 flex items-center text-white px-4 py-2 rounded-lg hover:bg-amber-600">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -176,9 +152,6 @@ export default function Dashboard() {
                     <p className="text-center text-red-500">{error}</p>
                 ) : (
                     <>
-                        {recommendationError && (
-                            <p className="text-center text-red-500 mb-3">{recommendationError}</p>
-                        )}
                         <div className="overflow-x-auto">
                             <table className="w-full border-collapse shadow-md rounded-lg overflow-hidden">
                                 <thead>

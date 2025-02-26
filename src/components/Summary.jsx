@@ -61,7 +61,11 @@ export default function AlertsSummary() {
         };
 
         fetchSummary();
-    }, []);
+    }, [navigate]);
+
+    const handleIpClick = (ip) => {
+        navigate(`/dashboard?ip=${ip}`);
+    };
 
     return (
         <div className="min-h-screen bg-gray-100 p-6 flex flex-col items-center">
@@ -117,7 +121,7 @@ export default function AlertsSummary() {
                                         key={index}
                                         className="border text-center"
                                     >
-                                        <td className="p-3 border">{ip}</td>
+                                        <td className="p-3 border text-blue-500 cursor-pointer underline" onClick={() => handleIpClick(ip)}>{ip}</td>
                                         <td className="p-3 border">
                                             {data.count}
                                         </td>
