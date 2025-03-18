@@ -37,6 +37,19 @@ export default function Dashboard() {
         navigate("/summary");
     };
 
+    function formatTimestamp(isoString) {
+        const date = new Date(isoString);
+    
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based
+        const day = String(date.getUTCDate()).padStart(2, "0");
+        const hours = String(date.getUTCHours()).padStart(2, "0");
+        const minutes = String(date.getUTCMinutes()).padStart(2, "0");
+        const seconds = String(date.getUTCSeconds()).padStart(2, "0");
+    
+        return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+    }
+
     const fetchData = async () => {
         try {
             if (!ip) {
@@ -169,7 +182,7 @@ export default function Dashboard() {
                                     {Array.isArray(data) && data.length > 0 ? (
                                         data.map((log, index) => (
                                             <tr key={index} className="border text-center">
-                                                <td className="p-3 border">{log.timestamp}</td>
+                                                <td className="p-3 border">{formatTimestamp(log.timestamp)}</td>
                                                 <td className="p-3 border">{log.agent}</td>
                                                 <td className="p-3 border">{log.description}</td>
                                                 <td className="p-3 border">{log.level}</td>
