@@ -44,7 +44,7 @@ Follow these steps to set up the project locally:
 - `npm run preview`: Preview the production build locally.
 - `npm run lint`: Run ESLint to check for code issues.
 
-## Folder Structure
+## 📂 Folder Structure
 ```
 securitybotfrontend/
 ├── public/                # Static assets
