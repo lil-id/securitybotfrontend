@@ -1,8 +1,8 @@
-# 🚀 SecurityBot Frontend
+# ✨ Morning Star (Monsta) Frontend
 
-This is the frontend application for the **SecurityBot** project, built with **React** and **Vite**. The application provides a user-friendly interface for monitoring Wazuh alerts, and viewing alert summaries.
+This is the frontend application for the **Morning Star (Monsta)** project, built with **React** and **Vite**. The application provides a user-friendly interface for monitoring Wazuh alerts, and viewing alert summaries.
 
-## ✨ Features
+## 🧭 Features
 
 - **📊 Dashboard**: View detailed Wazuh alerts for specific IP addresses.
 - **📋 Alerts Summary**: Summarized view of triggered alerts grouped by IP address.
