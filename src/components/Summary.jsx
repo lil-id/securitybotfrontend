@@ -51,10 +51,11 @@ export default function AlertsSummary() {
                 }, {});
 
                 const sortedEntries = Object.entries(ipCounts).sort(
-                    (a, b) => b[1].count - a[1].count || b[1].level - a[1].level
+                    (a, b) => b[1].level - a[1].level || b[1].count - a[1].count
                 );
                 setSummaryData(sortedEntries);
-            } catch (err) {
+            } catch (error) {
+                console.error("Error fetching summary data:", error);
                 setError("Failed to load summary data.");
             }
             setLoading(false);
