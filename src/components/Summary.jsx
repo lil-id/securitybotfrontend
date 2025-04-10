@@ -95,7 +95,7 @@ export default function AlertsSummary() {
                         Dashboard
                     </button>
                 </div>
-                <p className="text-gray-600 mb-4">* 10 Minutes Ago</p>
+                <p className="text-gray-600 mb-4">* 1 Hour Ago</p>
                 {loading ? (
                     <p className="text-center">Loading...</p>
                 ) : error ? (
