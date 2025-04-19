@@ -2,6 +2,13 @@
 
 This is the frontend application for the **Morning Star (Monsta)** project, built with **React** and **Vite**. The application provides a user-friendly interface for monitoring Wazuh alerts, and viewing alert summaries.
 
+## 🪄 Preview
+![Login](https://i.imgur.com/FkwFK42.png)
+
+![Alert Summary](https://i.imgur.com/9Xwfr3Z.png)
+
+![Search Alert](https://i.imgur.com/EyeVvlN.png)
+
 ## 🧭 Features
 
 - **📊 Dashboard**: View detailed Wazuh alerts for specific IP addresses.
